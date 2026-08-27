@@ -7,24 +7,20 @@
   (Convención estilo shadcn/ui — si ya usás shadcn, podés borrar esto.)
 */
 
+/*
+  El sitio es claro siempre, a propósito — no sigue el prefers-color-scheme
+  del sistema (por eso no hay bloque @media dark acá). --background usa el
+  mismo #fcfbf8 cálido que Hero/Bridge/Comex/Contact (no #fff puro: así el
+  grano de <Atmosphere /> se sigue viendo); --foreground es el mismo negro
+  que text-zinc-900.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
+  --background: #fcfbf8;
+  --foreground: #18181b;
   --muted: #f4f4f5;
   --muted-foreground: #71717a;
   --border: #e4e4e7;
   --ring: #a1a1aa;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #fafafa;
-    --muted: #18181b;
-    --muted-foreground: #a1a1aa;
-    --border: #27272a;
-    --ring: #52525b;
-  }
 }
 
 @theme inline {
@@ -34,4 +30,45 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-ring: var(--ring);
+}
+
+/*
+  Cursor a medida (components/providers/cursor.tsx): oculta el puntero
+  nativo SOLO cuando ese componente confirmó mouse real + motion permitido y
+  agregó esta clase al <html>. Si el efecto no corre (touch, reduced-motion),
+  la clase nunca se agrega y el cursor del sistema queda intacto.
+*/
+@media (hover: hover) and (pointer: fine) {
+  html.custom-cursor,
+  html.custom-cursor * {
+    cursor: none !important;
+  }
+
+  /*
+    El "pintado" real del texto: ningún mix-blend-mode le saca color a un
+    píxel negro puro (multiply/screen contra negro se quedan en negro), así
+    que el spotlight del cursor por sí solo nunca iba a cambiar la letra en
+    sí, solo el fondo alrededor. Esto sí la cambia: clipea el fondo (un
+    degradé) a la forma del texto y lo revela cálido solo cerca del cursor;
+    el resto del texto queda en --paint-base (mismo tono que su color
+    normal). background-attachment: fixed ancla el degradé al viewport, no a
+    cada elemento — por eso el barrido se siente continuo letra por letra
+    aunque el texto esté partido en spans (SplitText).
+    Se aplica también a los descendientes: el h1 del Hero, por ejemplo,
+    queda hecho spans por char y cada uno necesita el mismo tratamiento.
+  */
+  html.custom-cursor [data-cursor-paint],
+  html.custom-cursor [data-cursor-paint] * {
+    --paint-base: #18181b;
+    background-image: radial-gradient(
+      circle 90px at var(--cursor-x, -9999px) var(--cursor-y, -9999px),
+      #ff9d3f 0%,
+      #ffd23f 35%,
+      var(--paint-base) 70%
+    );
+    background-attachment: fixed;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }

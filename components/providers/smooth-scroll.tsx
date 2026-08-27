@@ -35,7 +35,19 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   }, [])
 
   return (
-    <ReactLenis root options={{ autoRaf: false }} ref={lenisRef}>
+    <ReactLenis
+      root
+      options={{
+        autoRaf: false,
+        // Scroll "pesado": lerp más bajo = tarda más en alcanzar el target
+        // (más inercia). wheelMultiplier más bajo = cada tick de rueda mueve
+        // un poco menos → sensación de resistencia. damp() es frame-rate
+        // independiente, así que esto se siente igual a 60fps y a 144fps.
+        lerp: 0.075,
+        wheelMultiplier: 0.85,
+      }}
+      ref={lenisRef}
+    >
       {children}
     </ReactLenis>
   )

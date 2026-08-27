@@ -79,7 +79,7 @@ export function BridgeSection() {
         const render = (p: number) => {
           const ap = p * 2 // 0..2 → índice de bloque activo
           if (glow.current) {
-            glow.current.style.opacity = String(clamp(0, 1, (ap - 1.4) / 0.6) * 0.4)
+            glow.current.style.opacity = String(clamp(0, 1, (ap - 1.4) / 0.6) * 0.22)
           }
           blockEls.forEach((el, i) => {
             const d = i - ap
@@ -121,8 +121,10 @@ export function BridgeSection() {
   )
 
   return (
-    <section ref={section} className="relative min-h-dvh overflow-hidden bg-[#0b0b0c] text-zinc-100">
-      {/* Glow del color de marca: arranca apagado y se filtra al final → handoff al showcase. */}
+    <section ref={section} className="relative min-h-dvh overflow-hidden bg-[#fcfbf8] text-zinc-900">
+      {/* Glow del color de marca: arranca apagado y se filtra al final → handoff al showcase.
+          Opacidad tope más baja que antes (era *0.4): un cyan saturado a full
+          se ve moody sobre negro pero cargoso sobre blanco. */}
       <div
         ref={glow}
         className="pointer-events-none absolute inset-0 opacity-0"
@@ -130,14 +132,18 @@ export function BridgeSection() {
       />
 
       {/* Frase tronco, anclada: cada bloque la completa. */}
-      <p className="absolute inset-x-0 top-10 px-6 text-center text-base font-medium text-zinc-400 md:text-lg">
-        Building modern and faster interfaces <span className="text-zinc-300">—</span>
+      <p data-cursor-paint className="absolute inset-x-0 top-10 px-6 text-center text-base font-medium text-zinc-600 md:text-lg">
+        Building modern and faster interfaces <span className="text-zinc-700">—</span>
       </p>
 
       <div ref={row} className="relative min-h-dvh">
         {BLOCKS.map((b, i) => (
           <div key={i} className="bridge-block relative mx-auto w-[300px] py-10 text-center">
-            <div className="relative mx-auto h-[220px] w-[240px]">
+            {/* Mini "device frame": queda oscuro a propósito, es un mockup de
+                UI (piel propia), no el fondo del sitio — por eso también
+                avisa data-cursor-surface="dark" para que el cursor use la
+                variante de spotlight que se ve sobre superficies oscuras. */}
+            <div className="relative mx-auto h-[220px] w-[240px]" data-cursor-surface="dark">
               {b.shapes.map((s, k) => (
                 <div
                   key={k}
@@ -154,7 +160,9 @@ export function BridgeSection() {
                 />
               ))}
             </div>
-            <p className="mt-5 text-lg font-semibold text-zinc-50">{b.complement}</p>
+            <p data-cursor-paint className="mt-5 text-lg font-semibold text-zinc-900">
+              {b.complement}
+            </p>
           </div>
         ))}
       </div>

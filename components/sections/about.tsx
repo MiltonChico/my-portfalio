@@ -50,6 +50,7 @@ export function About() {
     <section ref={section} className="flex min-h-dvh items-center px-6">
       <p
         ref={phrase}
+        data-cursor-paint
         className="max-w-3xl text-balance text-[clamp(1.75rem,5vw,3.25rem)] font-semibold leading-tight tracking-tight"
       >
        Building fast and modern interfaces.

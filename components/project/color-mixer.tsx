@@ -81,7 +81,10 @@ const [active, setActive] = useState(names[0])
   const remove = (i: number) => setPalette((p) => p.filter((_, idx) => idx !== i))
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#0b0b0c] p-5 text-zinc-200">
+    <div
+      data-cursor-surface="dark"
+      className="rounded-2xl border border-white/10 bg-[#0b0b0c] p-5 text-zinc-200"
+    >
       <div className="mb-4 flex items-baseline justify-between">
         <span className="text-[15px] font-semibold text-zinc-50">Color Palette</span>
         <span className="text-[11px] uppercase tracking-[0.12em] text-zinc-500">+3.500 colours</span>

@@ -40,28 +40,34 @@ export function ContactSection() {
   )
 
   return (
-    <section ref={section} className="relative overflow-hidden bg-[#0b0b0c] px-6 py-32 text-zinc-100">
+    <section ref={section} className="relative overflow-hidden bg-[#fcfbf8] px-6 py-32 text-zinc-900">
       {/* Glow de marca insinuándose desde abajo, como cierre del recorrido de color. */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
-        style={{ background: 'radial-gradient(50% 85% at 50% 100%, rgba(0,159,219,0.20) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(50% 85% at 50% 100%, rgba(0,159,219,0.14) 0%, transparent 70%)' }}
       />
 
       <div className="relative mx-auto max-w-2xl text-center">
         <p className="mb-5 text-[11px] uppercase tracking-[0.18em] text-zinc-500">What&apos;s next</p>
 
-        <h2 ref={head} className="text-balance text-4xl font-semibold tracking-tight md:text-5xl">
+        <h2
+          ref={head}
+          data-cursor-paint
+          className="text-balance text-4xl font-semibold tracking-tight md:text-5xl"
+        >
           Crafting more showcases to show.
         </h2>
 
-        <p className="mt-6 text-zinc-400">In the meantime, you can reach me —</p>
+        <p data-cursor-paint className="mt-6 text-zinc-600">
+          In the meantime, you can reach me —
+        </p>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-8">
           <a
             href="https://www.linkedin.com/in/miltonchico/"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 text-zinc-300 transition-colors hover:text-[#009fdb] focus-visible:text-[#009fdb] focus-visible:outline-none"
+            className="group inline-flex items-center gap-2 text-zinc-700 transition-colors hover:text-[#009fdb] focus-visible:text-[#009fdb] focus-visible:outline-none"
           >
             <FiLinkedin className="text-lg" aria-hidden />
             <span className="border-b border-transparent pb-0.5 group-hover:border-current group-focus-visible:border-current">
@@ -71,7 +77,7 @@ export function ContactSection() {
 
           <a
             href="mailto:milton.chico@outlook.com"
-            className="group inline-flex items-center gap-2 text-zinc-300 transition-colors hover:text-[#009fdb] focus-visible:text-[#009fdb] focus-visible:outline-none"
+            className="group inline-flex items-center gap-2 text-zinc-700 transition-colors hover:text-[#009fdb] focus-visible:text-[#009fdb] focus-visible:outline-none"
           >
             <FiMail className="text-lg" aria-hidden />
             <span className="border-b border-transparent pb-0.5 group-hover:border-current group-focus-visible:border-current">
@@ -80,7 +86,7 @@ export function ContactSection() {
           </a>
         </div>
 
-        <p className="mt-20 text-xs text-zinc-600">Milton — {new Date().getFullYear()}</p>
+        <p className="mt-20 text-xs text-zinc-400">Milton — {new Date().getFullYear()}</p>
       </div>
     </section>
   )
