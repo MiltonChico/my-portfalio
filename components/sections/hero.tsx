@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { useLenis } from 'lenis/react'
-import { gsap, SplitText, useGSAP } from '@/lib/gsap'
+import { gsap, ScrollTrigger, SplitText, useGSAP } from '@/lib/gsap'
 
 export function Hero() {
   const section = useRef<HTMLElement>(null)
@@ -74,11 +74,30 @@ export function Hero() {
           yoyo: true,
         })
 
+        // Scroll-cue: desaparece apenas dejás el Hero (scrolleaste a la
+        // siguiente sección), vuelve a aparecer si scrolleás para arriba y
+        // reingresás. pointerEvents se apaga junto con la opacidad, así no
+        // queda un botón invisible pero clickeable.
+        const cueTrigger = ScrollTrigger.create({
+          trigger: section.current!,
+          start: 'top top',
+          end: 'bottom top',
+          onLeave: () => {
+            if (cue.current) cue.current.style.pointerEvents = 'none'
+            gsap.to(cue.current, { y: 24, opacity: 0, duration: 0.4, ease: 'power3.in' })
+          },
+          onEnterBack: () => {
+            if (cue.current) cue.current.style.pointerEvents = 'auto'
+            gsap.to(cue.current, { y: 0, opacity: 1, duration: 0.55, ease: 'back.out(1.8)' })
+          },
+        })
+
         // SplitText modifica el DOM; hay que revertirlo a mano al limpiar.
         return () => {
           tl.kill()
           dotLoop.kill()
           labelLoop.kill()
+          cueTrigger.kill()
           split.revert()
         }
       })
@@ -102,8 +121,6 @@ export function Hero() {
       />
 
       <div className="relative z-10 flex flex-col items-center text-center">
-        {/* data-cursor-paint: al pasar el cursor, <Cursor /> dispara el
-            spotlight naranja→amarillo justo acá — el "pintado" que pediste. */}
         <h1
           ref={name}
           data-cursor-paint

@@ -1,6 +1,6 @@
 import { Hero } from '@/components/sections/hero'
 import { About } from '@/components/sections/about'
-import { TechStackMarquee } from '@/components/sections/tech-stack-marquee'
+import { TechPillars } from '@/components/sections/tech-pillars'
 import { BridgeSection } from '@/components/sections/bridge-section'
 import { ComexShowcase } from '@/components/sections/comex-showcase'
 import { ContactSection } from '@/components/sections/contact-section'
@@ -10,7 +10,7 @@ export default function Home() {
     <main>
       <Hero />
       <About />
-      <TechStackMarquee />
+      <TechPillars />
       <BridgeSection />
       <ComexShowcase />
       <ContactSection />

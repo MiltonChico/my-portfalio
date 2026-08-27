@@ -47,11 +47,14 @@ export function About() {
   )
  
   return (
-    <section ref={section} className="flex min-h-dvh items-center px-6">
+    <section ref={section} className="flex min-h-[60dvh] items-center px-6">
+      {/* Antes min-h-dvh: dejaba casi media pantalla vacía debajo del texto
+          centrado, y eso alejaba a TechPillars de acá. 60dvh acerca la
+          transición sin perder el aire de la sección. */}
       <p
         ref={phrase}
         data-cursor-paint
-        className="max-w-3xl text-balance text-[clamp(1.75rem,5vw,3.25rem)] font-semibold leading-tight tracking-tight"
+        className="max-w-3xl text-balance text-[clamp(1.75rem,5vw,3.25rem)] font-bold leading-tight tracking-tighter"
       >
        Building fast and modern interfaces.
       </p>
